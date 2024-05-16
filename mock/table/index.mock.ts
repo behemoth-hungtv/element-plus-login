@@ -19,6 +19,16 @@ type ListProps = {
   note: string | null
 }
 
+type ProxyProps = {
+  id: string
+  name: string
+  type: string
+  supported_protocol: string
+  started_at: string
+  expired_at: string
+  usage_remaining: string
+}
+
 interface TreeListProps {
   id: string
   author: string
@@ -34,6 +44,7 @@ interface TreeListProps {
 }
 
 let List: ListProps[] = []
+let Proxy: ProxyProps[] = []
 
 for (let i = 0; i < count; i++) {
   List.push(
@@ -47,6 +58,18 @@ for (let i = 0; i < count; i++) {
       profile_group_id: String(Mock.Random.integer(1, 100)), // Mocking profile_group_id as string
       note: Mock.Random.paragraph(), // Mocking note with a random paragraph
       updated_at: new Date()
+    })
+  )
+
+  Proxy.push(
+    Mock.mock({
+      id: String(i + 1), // Assuming id should be string
+      name: Mock.Random.first(),
+      type: Mock.Random.first(),
+      supported_protocol: 'HTTP', // Adding supported_protocol
+      started_at: new Date(),
+      expired_at: new Date(),
+      usage_remaining: String(Mock.Random.integer(0, 100)) // Adding usage_remaining as string
     })
   )
 }
@@ -205,6 +228,44 @@ export default [
     response: ({ query }) => {
       const { pageIndex, pageSize } = query
       const mockList = List
+      const pageList = mockList.filter(
+        (_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1)
+      )
+      return {
+        code: SUCCESS_CODE,
+        data: {
+          total: mockList.length,
+          list: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/mock/example/list',
+    method: 'get',
+    timeout,
+    response: ({ query }) => {
+      const { pageIndex, pageSize } = query
+      const mockList = List
+      const pageList = mockList.filter(
+        (_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1)
+      )
+      return {
+        code: SUCCESS_CODE,
+        data: {
+          total: mockList.length,
+          list: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/mock/example/list2',
+    method: 'get',
+    timeout,
+    response: ({ query }) => {
+      const { pageIndex, pageSize } = query
+      const mockList = Proxy
       const pageList = mockList.filter(
         (_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1)
       )

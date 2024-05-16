@@ -23,6 +23,7 @@ export const useForm = () => {
   const getForm = async () => {
     await nextTick()
     const form = unref(formRef)
+
     if (!form) {
       console.error('The form is not registered. Please use the register method to register')
     }

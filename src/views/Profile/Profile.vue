@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ContentWrap } from '@/components/ContentWrap';
-import TestOne from '@/views/Profile/test1.vue';
-import type { TabsPaneContext } from 'element-plus';
-import { ref } from 'vue';
+import { ContentWrap } from '@/components/ContentWrap'
+import TestOne from '@/views/Profile/test1.vue'
+import type { TabsPaneContext } from 'element-plus'
+import { ref, onMounted } from 'vue'
 
 const activeName = ref('first')
 

@@ -33,18 +33,18 @@ export const useTable = (config: UseTableConfig) => {
     }
   )
 
-  watch(
-    () => pageSize.value,
-    () => {
-      // 当前页不为1时，修改页数后会导致多次调用getList方法
-      if (unref(currentPage) === 1) {
-        methods.getList()
-      } else {
-        currentPage.value = 1
-        methods.getList()
-      }
-    }
-  )
+  // watch(
+  //   () => pageSize.value,
+  //   () => {
+  //     // 当前页不为1时，修改页数后会导致多次调用getList方法
+  //     if (unref(currentPage) === 1) {
+  //       methods.getList()
+  //     } else {
+  //       currentPage.value = 1
+  //       methods.getList()
+  //     }
+  //   }
+  // )
 
   onMounted(() => {
     if (immediate) {
@@ -80,7 +80,7 @@ export const useTable = (config: UseTableConfig) => {
       loading.value = true
       try {
         const res = await config?.fetchDataApi()
-        console.log('fetchDataApi res', res)
+
         if (res) {
           dataList.value = res.list
           total.value = res.total || 0

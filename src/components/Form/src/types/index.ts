@@ -1,28 +1,27 @@
+import { IAgreeProps } from '@/components/IAgree'
+import { JsonEditorProps } from '@/components/JsonEditor'
 import {
   AutocompleteProps,
-  InputNumberProps,
-  CascaderProps,
   CascaderNode,
+  CascaderProps,
   CascaderValue,
-  SwitchProps,
-  ComponentSize,
-  InputProps,
-  RateProps,
-  ColorPickerProps,
-  TransferProps,
-  RadioGroupProps,
-  RadioButtonProps,
   CheckboxGroupProps,
-  DividerProps,
+  ColorPickerProps,
+  ComponentSize,
   DatePickerProps,
+  DividerProps,
   FormItemProps as ElFormItemProps,
   FormProps as ElFormProps,
   ISelectProps,
+  InputNumberProps,
+  InputProps,
+  RadioButtonProps,
+  RadioGroupProps,
+  RateProps,
+  SwitchProps,
+  TransferProps,
   UploadProps
 } from 'element-plus'
-import { IEditorConfig } from '@wangeditor/editor'
-import { JsonEditorProps } from '@/components/JsonEditor'
-import { IAgreeProps } from '@/components/IAgree'
 import { CSSProperties } from 'vue'
 
 export interface PlaceholderModel {

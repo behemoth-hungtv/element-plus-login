@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { getProfileListApi } from '@/api/table'
+import { getProfileListApi, getProxyListApi } from '@/api/table'
 import { BaseButton } from '@/components/Button'
 import { Table, TableColumn, TableSlotDefault } from '@/components/Table'
 import { useI18n } from '@/hooks/web/useI18n'
@@ -12,14 +12,13 @@ import VueSecond from '@/views/Profile/test2.vue'
 const { tableRegister, tableMethods, tableState } = useTable({
   fetchDataApi: async () => {
     const { currentPage, pageSize } = tableState
-    const res = await getProfileListApi({
-      offset: (unref(currentPage) - 1) * unref(pageSize),
-      limit: unref(pageSize)
+    const res = await getProxyListApi({
+      pageIndex: unref(currentPage),
+      pageSize: unref(pageSize)
     })
-
     return {
-      list: res.data.items,
-      total: res.data.pagination.total_items
+      list: res.data.list,
+      total: res.data.total
     }
   }
 })
@@ -54,68 +53,44 @@ onMounted(() => {
           type: 'selection'
         },
         {
-          field: 'id',
-          label: 'ID',
-          type: 'index'
-        },
-        {
           field: 'name', // Synced with ListProps
           label: 'Name' // Synced with ListProps
         },
         {
-          field: 'tag', // Synced with ListProps
-          label: 'Tag', // Synced with ListProps
+          field: 'type', // Synced with ListProps
+          label: 'Type', // Synced with ListProps
           formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
-            return (
-              <ElTag closable type="success">
-                {cellValue}
-              </ElTag>
-            )
+            return <ElTag type="success">{cellValue}</ElTag>
           }
         },
         {
-          field: 'note', // Synced with ListProps
-          label: 'Note' // Synced with ListProps
+          field: 'supported_protocol', // Synced with ListProps
+          label: 'Supported Protocal' // Synced with ListProps
         },
         {
-          field: 'proxy', // Synced with ListProps
-          label: 'Proxy' // Synced with ListProps
-        },
-        {
-          field: 'updated_at', // Synced with ListProps
-          label: 'Updated At', // Synced with ListProps
+          field: 'started_at', // Synced with ListProps
+          label: 'Started At', // Synced with ListProps,
           formatter: ({ createTime }) => dayjs(createTime).format('YYYY-MM-DD HH:mm:ss')
         },
         {
-          field: 'status', // Synced with ListProps
-          label: 'Status', // Synced with ListProps
-          formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
-            return (
-              <ElTag type={cellValue === 1 ? 'success' : cellValue === 2 ? 'warning' : 'danger'}>
-                {cellValue === 1
-                  ? t('tableDemo.important')
-                  : cellValue === 2
-                    ? t('tableDemo.good')
-                    : t('tableDemo.commonly')}
-              </ElTag>
-            )
-          }
+          field: 'expired_at', // Synced with ListProps
+          label: 'Expired At', // Synced with ListProps,
+          formatter: ({ createTime }) => dayjs(createTime).format('YYYY-MM-DD HH:mm:ss')
         },
         {
-          field: 'Operation',
-          label: t('tableDemo.action'),
-          formatter: () => {
-            return <VueSecond onOpenDetails={() => (centerDialogVisible.value = true)}></VueSecond>
-          }
+          field: 'usage_remaining', // Synced with ListProps
+          label: 'Usage Remaining' // Synced with ListProps
         }
       ]
     })
   }, 2000)
 })
 
-const canShowPagination = ref(true)
+const actionFn = (data: TableSlotDefault) => {
+  console.log(data)
+}
 
-const centerDialogVisible = ref(false)
+const canShowPagination = ref(true)
 </script>
 
 <template>
@@ -136,16 +111,6 @@ const centerDialogVisible = ref(false)
     @register="tableRegister"
     @refresh="refresh"
   />
-
-  <el-dialog v-model="centerDialogVisible" title="Warning" width="500" center>
-    <span> It should be noted that the content will not be aligned in center by default </span>
-    <template #footer>
-      <div class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false"> Confirm </el-button>
-      </div>
-    </template>
-  </el-dialog>
 </template>
 
 <style lang="less" scoped>

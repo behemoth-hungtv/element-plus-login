@@ -7,6 +7,7 @@ import { useRenderMenuItem } from './components/useRenderMenuItem'
 import { useRouter } from 'vue-router'
 import { isUrl } from '@/utils/is'
 import { useDesign } from '@/hooks/web/useDesign'
+import { asyncRouterMap } from '@/router/index'
 
 const { getPrefixCls } = useDesign()
 
@@ -40,9 +41,7 @@ export default defineComponent({
       }
     })
 
-    const routers = computed(() =>
-      unref(layout) === 'cutMenu' ? permissionStore.getMenuTabRouters : permissionStore.getRouters
-    )
+    const routers = asyncRouterMap
 
     const collapse = computed(() => appStore.getCollapse)
 

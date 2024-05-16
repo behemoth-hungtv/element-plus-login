@@ -27,16 +27,13 @@ import '@/plugins/animate.css'
 // 路由
 import { setupRouter } from './router'
 
-// 权限
-import { setupPermission } from './directives'
-
 import { createApp } from 'vue'
 
 import App from './App.vue'
 
-import './permission'
-
 import ElementPlus from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import '@/styles/main.scss'
 
 // 创建实例
 const setupAll = async () => {
@@ -45,6 +42,10 @@ const setupAll = async () => {
   app.use(ElementPlus, {
     // options
   })
+
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+  }
 
   await setupI18n(app)
 
@@ -55,8 +56,6 @@ const setupAll = async () => {
   setupElementPlus(app)
 
   setupRouter(app)
-
-  setupPermission(app)
 
   app.mount('#app')
 }
