@@ -1,17 +1,12 @@
 <script setup lang="tsx">
-import { ContentWrap } from '@/components/ContentWrap'
-import { useI18n } from '@/hooks/web/useI18n'
 import { Table } from '@/components/Table'
 import { getCardTableListApi } from '@/api/table'
 import { ref } from 'vue'
-import { ElLink, ElDivider } from 'element-plus'
 
 interface Params {
   pageIndex?: number
   pageSize?: number
 }
-
-const { t } = useI18n()
 
 const loading = ref(true)
 

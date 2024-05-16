@@ -1,31 +1,13 @@
 <script setup lang="ts">
-import { FormSchema } from '@/components/Form'
 import { Search } from '@/components/Search'
 import { useSearch } from '@/hooks/web/useSearch'
-import MinTable from '@/views/Proxy/UseTableDemo.vue'
-import { reactive, ref } from 'vue'
+import ProxyCard from '@/views/Proxy/ProxyCard.vue'
+import { ref } from 'vue'
 import { ContentWrap } from '@/components/ContentWrap'
-import ProxyPurchase from '@/views/Proxy/Purchase.vue'
+import ProxyPurchase from '@/views/Proxy/ProxyPurchase.vue'
 
-const { searchRegister, searchMethods } = useSearch()
+const { searchMethods } = useSearch()
 const { getFormData } = searchMethods
-
-const schema = reactive<FormSchema[]>([
-  {
-    field: 'field1',
-    label: 'Name',
-    component: 'Input'
-  }
-])
-
-const isGrid = ref(false)
-const layout = ref('inline')
-
-const handleSearch = async (data: any) => {
-  const formData = await getFormData()
-  console.log(formData)
-  console.log(data)
-}
 
 const searchParams = ref({})
 const setSearchParams = (params: any) => {
@@ -74,7 +56,7 @@ const centerDialogVisible = ref(false)
       >
     </section>
 
-    <section class="mt-4"> <MinTable /> </section>
+    <section class="mt-4"> <ProxyCard /> </section>
 
     <el-dialog v-model="centerDialogVisible" width="auto" minwidth="400" center>
       <template #title

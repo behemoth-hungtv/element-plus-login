@@ -1,32 +1,8 @@
 <script setup lang="ts">
-import { FormSchema } from '@/components/Form'
 import { Search } from '@/components/Search'
 import { useSearch } from '@/hooks/web/useSearch'
-import MinTable from '@/views/Profile/UseTableDemo.vue'
-import { reactive, ref } from 'vue'
-
-const { searchRegister, searchMethods } = useSearch()
-const { getFormData } = searchMethods
-
-const schema = reactive<FormSchema[]>([
-  {
-    field: 'field1',
-    label: 'Name',
-    component: 'Input'
-  }
-])
-
-const isGrid = ref(false)
-const layout = ref('inline')
-
-const handleSearch = async (data: any) => {
-  const formData = await getFormData()
-  console.log(formData)
-  console.log(data)
-}
-
-const searchLoading = ref(false)
-const resetLoading = ref(false)
+import ProfileTable from '@/views/Profile/ProfileTable.vue'
+import { ref } from 'vue'
 
 const functionButtonsData = [
   {
@@ -163,7 +139,7 @@ const searchSchema = ref([
   </section>
 
   <section class="mt-4">
-    <MinTable />
+    <ProfileTable />
   </section>
 </template>
 
