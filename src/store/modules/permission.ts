@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia'
 import { asyncRouterMap, constantRouterMap } from '@/router'
 import {
+  flatMultiLevelRoutes,
   generateRoutesByFrontEnd,
-  generateRoutesByServer,
-  flatMultiLevelRoutes
+  generateRoutesByServer
 } from '@/utils/routerHelper'
-import { store } from '../index'
 import { cloneDeep } from 'lodash-es'
+import { defineStore } from 'pinia'
+import { store } from '../index'
 
 export interface PermissionState {
   routers: AppRouteRecordRaw[]
@@ -46,7 +46,7 @@ export const usePermissionStore = defineStore('permission', {
         if (type === 'server') {
           // 模拟后端过滤菜单
           routerMap = generateRoutesByServer(routers as AppCustomRouteRecordRaw[])
-          console.log(routerMap)
+
         } else if (type === 'frontEnd') {
           // 模拟前端过滤菜单
           routerMap = generateRoutesByFrontEnd(cloneDeep(asyncRouterMap), routers as string[])

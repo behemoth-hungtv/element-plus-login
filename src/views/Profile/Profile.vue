@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ContentWrap } from '@/components/ContentWrap';
-import TestOne from '@/views/Profile/test1.vue';
-import type { TabsPaneContext } from 'element-plus';
-import { ref } from 'vue';
+import { ContentWrap } from '@/components/ContentWrap'
+import FunctionalSection from '@/views/Profile/FunctionalSection.vue'
+import type { TabsPaneContext } from 'element-plus'
+import { ref } from 'vue'
 
 const activeName = ref('first')
 
@@ -11,7 +11,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 }
 
 const tabsData = [
-  { name: 'first', label: 'Cloud', component: TestOne },
+  { name: 'first', label: 'Cloud', component: FunctionalSection },
   { name: 'second', label: 'Local' },
   { name: 'third', label: 'Group' },
   { name: 'fourth', label: 'Team' }

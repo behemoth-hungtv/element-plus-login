@@ -6,7 +6,11 @@ interface RoleParams {
 }
 
 export const loginApi = (data: UserType): Promise<IResponse<UserType>> => {
-  return request.post({ url: '/mock/user/login', data })
+  return request.post({ url: 'http://103.139.202.40:8080/api/auth/login', data })
+}
+
+export const refreshTokenApi = (data) => {
+  return request.post({ url: 'http://103.139.202.40:8080/api/auth/refreshToken', data })
 }
 
 export const loginOutApi = (): Promise<IResponse> => {

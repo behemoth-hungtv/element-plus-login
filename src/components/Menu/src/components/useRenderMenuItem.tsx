@@ -10,8 +10,9 @@ export const useRenderMenuItem = () =>
   // allRouters: AppRouteRecordRaw[] = [],
   {
     const renderMenuItem = (routers: AppRouteRecordRaw[], parentPath = '/') => {
+      console.log('route',routers)
       return routers
-        .filter((v) => !v.meta?.hidden && v.path =="/profile")
+        .filter((v) => !v.meta?.hidden)
         .map((v) => {
           const meta = v.meta ?? {}
           const { oneShowingChild, onlyOneChild } = hasOneShowingChild(v.children, v)

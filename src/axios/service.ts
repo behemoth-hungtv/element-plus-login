@@ -1,11 +1,27 @@
 import axios, { AxiosError } from 'axios'
 import { defaultRequestInterceptors, defaultResponseInterceptors } from './config'
-
+import { useUserStoreWithOut } from '@/store/modules/user'
 import { REQUEST_TIMEOUT } from '@/constants'
 import { ElMessage } from 'element-plus'
 import { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig, RequestConfig } from './types'
+import { refreshTokenApi } from '@/api/login/index'
+
+import router from '@/router'
 
 export const PATH_URL = import.meta.env.VITE_API_BASE_PATH
+
+let isRefreshing = false
+
+let refreshSubscribers: Array<(token: string) => void> = []
+
+const onRefreshed = (token: string) => {
+  refreshSubscribers.forEach((callback) => callback(token))
+  refreshSubscribers = []
+}
+
+const addRefreshSubscriber = (callback: (token: string) => void) => {
+  refreshSubscribers.push(callback)
+}
 
 const abortControllerMap: Map<string, AbortController> = new Map()
 
@@ -32,9 +48,47 @@ axiosInstance.interceptors.response.use(
     // 这里不能做任何处理，否则后面的 interceptors 拿不到完整的上下文了
     return res
   },
-  (error: AxiosError) => {
-    console.log('err： ' + error) // for debug
-    ElMessage.error(error.message)
+  async (error: AxiosError) => {
+    const originalRequest = error.config
+
+    if (error.toJSON().status == 401 && !originalRequest._retry) {
+      originalRequest._retry = true
+
+      if (!isRefreshing) {
+        isRefreshing = true
+
+        const userStore = useUserStoreWithOut()
+        const refreshToken = userStore.getRefreshToken
+
+        const res = await refreshTokenApi({ refresh_token: refreshToken })
+
+        console.log('origin', res)
+
+        if (res) {
+          userStore.setUserInfo(res.data)
+          userStore.setToken(res.data.access_token)
+          userStore.setRefreshToken(res.data.refresh_token)
+
+          onRefreshed(newToken)
+        }
+
+        return new Promise((resolve, reject) => {
+          addRefreshSubscriber((token: string) => {
+            if (token) {
+              originalRequest.headers['Authorization'] = 'Bearer ' + token
+              resolve(axiosInstance(originalRequest))
+            } else {
+              reject(error)
+            }
+          })
+        })
+      } else if (error.toJSON().status == 401) {
+        router.push('/')
+      }
+    }
+
+    ElMessage.error(error.toJSON().response.message)
+
     return Promise.reject(error)
   }
 )

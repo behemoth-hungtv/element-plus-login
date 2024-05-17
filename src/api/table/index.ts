@@ -1,8 +1,12 @@
 import request from '@/axios'
 import type { TableData } from './types'
 
-export const getTableListApi = (params: any) => {
-  return request.get({ url: '/mock/example/list', params })
+export const getProfileListApi = (params: any) => {
+  return request.get({ url: 'http://103.139.202.40:8080/api/profiles', params })
+}
+
+export const getProxyListApi = (params: any) => {
+  return request.get({ url: '/mock/example/list2', params })
 }
 
 export const getCardTableListApi = (params: any) => {
