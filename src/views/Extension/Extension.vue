@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import MinTable from '@/views/Proxy/UseTableDemo.vue'
 import { ContentWrap } from '@/components/ContentWrap'
 import ExtensionCard from '@/views/Extension/ExtensionCard.vue'
 
