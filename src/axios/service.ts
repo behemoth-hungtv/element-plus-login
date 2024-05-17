@@ -50,6 +50,7 @@ axiosInstance.interceptors.response.use(
   },
   async (error: AxiosError) => {
     const originalRequest = error.config
+    const userStore = useUserStoreWithOut()
 
     if (error.toJSON().status == 401 && !originalRequest._retry) {
       originalRequest._retry = true
@@ -57,12 +58,9 @@ axiosInstance.interceptors.response.use(
       if (!isRefreshing) {
         isRefreshing = true
 
-        const userStore = useUserStoreWithOut()
         const refreshToken = userStore.getRefreshToken
 
         const res = await refreshTokenApi({ refresh_token: refreshToken })
-
-        console.log('origin', res)
 
         if (res) {
           userStore.setUserInfo(res.data)
@@ -82,9 +80,9 @@ axiosInstance.interceptors.response.use(
             }
           })
         })
-      } else if (error.toJSON().status == 401) {
-        router.push('/')
       }
+    } else if (error.toJSON().status == 401 || error.toJSON().status == 400) {
+      userStore.logout()
     }
 
     ElMessage.error(error.toJSON().response.message)
