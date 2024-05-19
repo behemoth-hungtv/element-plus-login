@@ -6,7 +6,11 @@ export const getProfileListApi = (params: any) => {
 }
 
 export const getProxyListApi = (params: any) => {
-  return request.get({ url: '/mock/example/list2', params })
+  return request.get({ url: '/mock/example/proxies', params })
+}
+
+export const getGroupMemberListApi = (params: any) => {
+  return request.get({ url: '/mock/example/group_members', params })
 }
 
 export const getCardTableListApi = (params: any) => {

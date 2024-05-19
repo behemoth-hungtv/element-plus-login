@@ -132,6 +132,23 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         }
       }
     ]
+  },
+  {
+    path: '/group_member',
+    component: Layout,
+    name: 'GroupMember',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/GroupMember/GroupMember.vue'),
+        name: 'GroupMemberIndex',
+        meta: {
+          title: 'Group member',
+          icon: 'mdi:account-group'
+        }
+      }
+    ]
   }
 ]
 

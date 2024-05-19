@@ -19,6 +19,15 @@ type ListProps = {
   note: string | null
 }
 
+type GroupMemberProps = {
+  id: string
+  email: string
+  create_profile: string
+  share_profile: string
+  view_profile: string
+  edit_proxy: string
+}
+
 type ProxyProps = {
   id: string
   name: string
@@ -45,6 +54,7 @@ interface TreeListProps {
 
 let List: ListProps[] = []
 let Proxy: ProxyProps[] = []
+let GroupMember: GroupMemberProps[] = []
 
 for (let i = 0; i < count; i++) {
   List.push(
@@ -70,6 +80,17 @@ for (let i = 0; i < count; i++) {
       started_at: new Date(),
       expired_at: new Date(),
       usage_remaining: String(Mock.Random.integer(0, 100)) // Adding usage_remaining as string
+    })
+  )
+
+  GroupMember.push(
+    Mock.mock({
+      id: String(i + 1), // Assuming id should be string
+      email: Mock.Random.first(),
+      create_profile: Mock.Random.first(),
+      view_profile: 'HTTP', // Adding supported_protocol
+      share_profile: Mock.Random.first(),
+      edit_proxy: new Date()
     })
   )
 }
@@ -260,12 +281,31 @@ export default [
     }
   },
   {
-    url: '/mock/example/list2',
+    url: '/mock/example/proxies',
     method: 'get',
     timeout,
     response: ({ query }) => {
       const { pageIndex, pageSize } = query
       const mockList = Proxy
+      const pageList = mockList.filter(
+        (_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1)
+      )
+      return {
+        code: SUCCESS_CODE,
+        data: {
+          total: mockList.length,
+          list: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/mock/example/group_members',
+    method: 'get',
+    timeout,
+    response: ({ query }) => {
+      const { pageIndex, pageSize } = query
+      const mockList = GroupMember
       const pageList = mockList.filter(
         (_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1)
       )

@@ -67,6 +67,7 @@ const value1 = ref(true)
         <div class="line-clamp-3 font-size-12px">{{ row.desc }}</div>
       </div>
     </template>
+
     <template #content-footer="item">
       <div class="flex justify-center items-center">
         <el-switch
