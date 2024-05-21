@@ -8,6 +8,12 @@
   justify-content: center !important;
 }
 
+.profile-page {
+  .el-form {
+    max-width: unset;
+  }
+}
+
 * {
   font-family: sans-serif;
 }

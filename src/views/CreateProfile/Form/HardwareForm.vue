@@ -1,6 +1,6 @@
 <template>
-  <el-form label-position="top" class="demo-form-inline">
-    <el-row :gutter="50">
+  <el-form label-position="top" class="demo-form-inline" style="max-width: unset">
+    <el-row :gutter="10" class="justify-between">
       <el-col :span="4">
         <el-form-item label="WebGL">
           <el-select v-model="formData.webgl" placeholder="Select value">
@@ -44,7 +44,7 @@
     </el-row>
 
     <el-row :gutter="50">
-      <el-col :span="8">
+      <el-col :span="12">
         <el-form-item label="WebGL Rerender">
           <el-select
             v-model="formData.webglRerender"
@@ -61,7 +61,7 @@
         </el-form-item>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :span="12">
         <el-form-item label="WebGL Vendor">
           <el-select
             v-model="formData.webglVendor"
@@ -78,8 +78,8 @@
       ></el-col>
     </el-row>
 
-    <el-row :gutter="50">
-      <el-col :span="10">
+    <el-row :gutter="10">
+      <el-col :span="12">
         <el-form-item label="Tiện Ích Mở Rộng">
           <el-input
             v-model="formData.extensionValue"
@@ -89,7 +89,7 @@
         </el-form-item>
       </el-col>
 
-      <el-col :span="10">
+      <el-col :span="12">
         <el-form-item label="Chrome arguments">
           <el-input v-model="formData.chromeArgument" placeholder="Eg: Argument1=abc" />
         </el-form-item>
@@ -98,9 +98,7 @@
 
     <el-row>
       <el-col>
-        <el-form-item label="Kích hoạt tiện ích mở rộng">
-          <el-checkbox v-model="formData.enableExtension"></el-checkbox>
-        </el-form-item>
+        <el-checkbox v-model="formData.enableExtension">Kích hoạt tiện ích mở rộng</el-checkbox>
       </el-col>
     </el-row>
   </el-form>

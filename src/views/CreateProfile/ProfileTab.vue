@@ -1,3 +1,12 @@
+<script setup>
+import { ref } from 'vue'
+import CookiesForm from '@/views/CreateProfile/Form/CookieForm.vue'
+import HardwareForm from '@/views/CreateProfile/Form/HardwareForm.vue'
+import LocationForm from '@/views/CreateProfile/Form/LocationForm.vue'
+
+const activeTab = ref('overview')
+</script>
+
 <template>
   <div>
     <el-tabs v-model="activeTab">
@@ -8,23 +17,17 @@
         <p>Content for Mạng</p>
       </el-tab-pane>
       <el-tab-pane label="Vị Trí" name="location">
-        <p>Content for Vị Trí</p>
+        <LocationForm></LocationForm>
       </el-tab-pane>
       <el-tab-pane label="Phần Cứng" name="hardware">
-        <p>Content for Phần Cứng</p>
+        <HardwareForm />
       </el-tab-pane>
       <el-tab-pane label="Cookies" name="cookies">
-        <p>Content for Cookies</p>
+        <CookiesForm />
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const activeTab = ref('overview')
-</script>
 
 <style>
 /* Optional: Add custom styles here */
