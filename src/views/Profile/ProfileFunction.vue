@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { Search } from '@/components/Search'
-import { useSearch } from '@/hooks/web/useSearch'
-import ProfileTable from '@/views/Profile/ProfileTable.vue'
-import { ref } from 'vue'
-
 const functionButtonsData = [
   {
     id: 1,
@@ -11,7 +6,8 @@ const functionButtonsData = [
     action: 'startProfiles',
     type: 'primary',
     iconClass: 'play-icon',
-    icon: 'CaretRight' // Element Plus icon component for starting profiles
+    icon: 'CaretRight',
+    method: () => {}
   },
   {
     id: 2,
@@ -20,7 +16,8 @@ const functionButtonsData = [
     iconClass: 'stop-icon',
     type: 'danger',
     plain: true,
-    icon: 'CircleClose' // Element Plus icon component for stopping profiles
+    icon: 'CircleClose',
+    method: () => {}
   },
   {
     id: 3,
@@ -28,7 +25,8 @@ const functionButtonsData = [
     action: 'assignGroup',
     iconClass: 'user-plus-icon',
     type: 'primary',
-    icon: 'User' // Element Plus icon component for assigning to a group
+    icon: 'User',
+    method: () => {}
   },
   {
     id: 4,
@@ -36,7 +34,8 @@ const functionButtonsData = [
     action: 'shareProfiles',
     iconClass: 'share-icon',
     type: 'primary',
-    icon: 'Share' // Element Plus icon component for sharing profiles
+    icon: 'Share',
+    method: () => {}
   },
   {
     id: 5,
@@ -44,7 +43,8 @@ const functionButtonsData = [
     action: 'checkProxy',
     iconClass: 'check-icon',
     type: 'primary',
-    icon: 'Check' // Element Plus icon component for checking proxy
+    icon: 'Check',
+    method: () => {}
   },
   {
     id: 6,
@@ -53,7 +53,8 @@ const functionButtonsData = [
     iconClass: 'start-app-icon',
     type: 'primary',
     plain: true,
-    icon: 'CaretRight' // Element Plus icon component for starting with the app
+    icon: 'CaretRight',
+    method: () => {}
   },
   {
     id: 7,
@@ -62,7 +63,8 @@ const functionButtonsData = [
     iconClass: 'update-icon',
     type: 'primary',
     plain: true,
-    icon: 'Refresh' // Element Plus icon component for updating proxy
+    icon: 'Refresh',
+    method: () => {}
   },
   {
     id: 8,
@@ -71,7 +73,8 @@ const functionButtonsData = [
     iconClass: 'update-profiles-icon',
     type: 'primary',
     plain: true,
-    icon: 'RefreshRight' // Element Plus icon component for updating profiles
+    icon: 'RefreshRight',
+    method: () => {}
   },
   {
     id: 9,
@@ -80,7 +83,8 @@ const functionButtonsData = [
     iconClass: 'cloud-icon',
     type: 'danger',
     plain: true,
-    icon: 'Upload' // Element Plus icon component for sharing on cloud
+    icon: 'Upload',
+    method: () => {}
   },
   {
     id: 10,
@@ -89,31 +93,18 @@ const functionButtonsData = [
     iconClass: 'icon-class',
     type: 'success',
     plain: true,
-    icon: 'HelpFilled' // Element Plus icon component for new fingerprint
+    icon: 'HelpFilled',
+    method: () => {}
   }
 ]
-
-const searchParams = ref({})
-const setSearchParams = (params: any) => {
-  searchParams.value = params
-}
-const searchSchema = ref([
-  {
-    component: 'Input',
-    field: 'title',
-    label: 'Title'
-  }
-])
 </script>
-
 <template>
-  <Search :schema="searchSchema" @search="setSearchParams" @reset="setSearchParams" />
-
   <section class="functional-section flex flex-wrap gap-3.5 mt-3 justify-center">
     <el-button
       v-for="(data, index) in functionButtonsData"
       :key="index"
       :type="data.type"
+      @click="data.method"
       plain
       class="mx-0"
     >
@@ -136,10 +127,6 @@ const searchSchema = ref([
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-  </section>
-
-  <section class="mt-4">
-    <ProfileTable />
   </section>
 </template>
 

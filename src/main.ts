@@ -43,6 +43,16 @@ const setupAll = async () => {
     // options
   })
 
+  app.config.errorHandler = (err, instance, info) => {
+    console.log('Global Error Handler:', err, info)
+    // You can also log the error to an external service here
+  }
+
+  app.config.warnHandler = (msg, instance, trace) => {
+    console.warn('Global Warning Handler:', msg, trace)
+    // You can also log the warning to an external service here
+  }
+
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }

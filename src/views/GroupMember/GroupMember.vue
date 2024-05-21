@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { Search } from '@/components/Search'
-import { useSearch } from '@/hooks/web/useSearch'
-import GroupMemberCard from '@/views/GroupMember/GroupMemberCard.vue'
+import GroupMemberTable from '@/views/GroupMember/GroupMemberTable.vue'
 import { ref, reactive } from 'vue'
 import { ContentWrap } from '@/components/ContentWrap'
-import GroupMemberCreate from '@/views/GroupMember/GroupMemberCreate.vue'
 
 const searchParams = ref({})
 const setSearchParams = (params: any) => {
@@ -59,14 +57,14 @@ const resetForm = (formEl: FormInstance | undefined) => {
       />
 
       <BaseButton @click="centerDialogVisible = true" type="primary"
-        ><el-icon class="me-2"><CirclePlus /></el-icon>Add member</BaseButton
+        ><el-icon class="me-2"><CirclePlus /></el-icon>Add group</BaseButton
       >
     </section>
 
-    <section class="mt-4"> <GroupMemberCard /> </section>
+    <section class="mt-4"> <GroupMemberTable /> </section>
 
     <el-dialog v-model="centerDialogVisible" width="auto" center>
-      <template #title
+      <template #header
         ><div class="flex items-center">
           <el-icon class="me-2"><User /></el-icon>
           Add new member to group

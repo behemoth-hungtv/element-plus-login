@@ -83,6 +83,23 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
 
 export const asyncRouterMap: AppRouteRecordRaw[] = [
   {
+    path: '/create_profile',
+    component: Layout,
+    name: 'ProfileCreate',
+    meta: {},
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/CreateProfile/CreateProfile.vue'),
+        name: 'ProfileCreate',
+        meta: {
+          title: 'Create Profile',
+          icon: 'mdi:add'
+        }
+      }
+    ]
+  },
+  {
     path: '/profile',
     component: Layout,
     name: 'Profile',
@@ -146,6 +163,23 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         meta: {
           title: 'Group member',
           icon: 'mdi:account-group'
+        }
+      }
+    ]
+  },
+  {
+    path: '/group',
+    component: Layout,
+    name: 'Group',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/Group/Group.vue'),
+        name: 'GroupIndex',
+        meta: {
+          title: 'Group',
+          icon: 'mdi:house'
         }
       }
     ]

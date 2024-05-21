@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ContentWrap } from '@/components/ContentWrap'
 import ExtensionCard from '@/views/Extension/ExtensionCard.vue'
-
-const centerDialogVisible = ref(false)
-
 import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
+
+const centerDialogVisible = ref(false)
 
 const formRef = ref<FormInstance>()
 
@@ -57,7 +56,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     <ExtensionCard></ExtensionCard>
 
     <el-dialog v-model="centerDialogVisible" width="auto" center>
-      <template #title
+      <template #header
         ><div class="flex items-center">
           <el-icon class="me-2"><Link /></el-icon>
           Enter Extension URL

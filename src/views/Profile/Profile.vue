@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ContentWrap } from '@/components/ContentWrap'
-import FunctionalSection from '@/views/Profile/FunctionalSection.vue'
+import CloudPanel from '@/views/Profile/CloudPanel.vue'
 import type { TabsPaneContext } from 'element-plus'
 import { ref } from 'vue'
 
@@ -11,7 +11,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 }
 
 const tabsData = [
-  { name: 'first', label: 'Cloud', component: FunctionalSection },
+  { name: 'first', label: 'Cloud', component: CloudPanel },
   { name: 'second', label: 'Local' },
   { name: 'third', label: 'Group' },
   { name: 'fourth', label: 'Team' }
@@ -19,7 +19,7 @@ const tabsData = [
 </script>
 
 <template>
-  <ContentWrap>
+  <ContentWrap class="profile-page">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
       <el-tab-pane v-for="tab in tabsData" :name="tab.name" :key="tab.name">
         <template #label>
@@ -33,12 +33,13 @@ const tabsData = [
 </template>
 
 <style>
-.demo-tabs > .el-tabs__content {
+/* .demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;
   font-weight: 600;
-}
+} */
+
 .el-tabs__content {
   padding: 0 !important;
 }

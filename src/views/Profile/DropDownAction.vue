@@ -1,6 +1,43 @@
+<script lang="ts" setup>
+import { useI18n } from '@/hooks/web/useI18n'
+import { ElMessageBox, ElMessage } from 'element-plus'
+
+import ShareProfile from '@/views/Profile/Form/ShareProfile.vue'
+import ChangeOwner from '@/views/Profile/Form/ChangeOwner.vue'
+
+const { t } = useI18n()
+
+const exportCookies = () => {
+  console.log('exportCookies')
+}
+
+const props = defineProps({
+  record: {
+    type: null,
+    default: () => {}
+  }
+})
+
+const onDeleteProfile = () => {
+  ElMessageBox.confirm(t('common.delMessage'), t('common.delWarning'), {
+    confirmButtonText: t('common.delOk'),
+    cancelButtonText: t('common.delCancel'),
+    type: 'warning'
+  }).then(async () => {
+    // call delete api
+
+    console.log('record', props.record)
+
+    if (true) {
+      ElMessage.success(t('common.delSuccess'))
+    }
+  })
+}
+</script>
+
 <template>
   <div class="relative">
-    <BaseButton type="primary"> Start </BaseButton>
+    <el-button type="primary" plain> Start </el-button>
 
     <el-dropdown>
       <el-button class="ml-3 mt-[2px]" link type="primary">
@@ -10,17 +47,28 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>
-            <el-popconfirm title="Are you sure to delete this?">
-              <template #reference>
-                <el-button>
-                  <el-icon class="me-2"> <Delete /> </el-icon>Delete</el-button
-                >
-              </template>
-            </el-popconfirm>
+            <el-button type="default" text @click="$emit('openDetails')"
+              ><el-icon class="me-2"> <Edit /> </el-icon> Chỉnh sửa
+            </el-button>
           </el-dropdown-item>
+
           <el-dropdown-item>
-            <el-button plain @click="$emit('openDetails')"
-              ><el-icon class="me-2"> <Edit /> </el-icon> Detail
+            <ShareProfile></ShareProfile>
+          </el-dropdown-item>
+
+          <el-dropdown-item>
+            <el-button type="default" text @click="exportCookies"
+              ><el-icon class="me-2"> <Edit /> </el-icon> Xuất Cookies
+            </el-button>
+          </el-dropdown-item>
+
+          <el-dropdown-item>
+            <ChangeOwner></ChangeOwner>
+          </el-dropdown-item>
+
+          <el-dropdown-item>
+            <el-button type="danger" text @click="onDeleteProfile">
+              <el-icon class="me-2"> <Delete /> </el-icon> Xoá
             </el-button>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -29,7 +77,6 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
 <style scoped>
 .example-showcase .el-dropdown-link {
   cursor: pointer;
