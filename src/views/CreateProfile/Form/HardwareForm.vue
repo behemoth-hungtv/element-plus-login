@@ -78,7 +78,7 @@
       ></el-col>
     </el-row>
 
-    <el-row :gutter="10">
+    <el-row :gutter="50">
       <el-col :span="12">
         <el-form-item label="Tiện Ích Mở Rộng">
           <el-input

@@ -71,10 +71,3 @@ const onDeleteCookies = () => {
     </el-table>
   </div>
 </template>
-
-<style>
-.el-form {
-  max-width: 500px;
-  margin: 0 auto;
-}
-</style>

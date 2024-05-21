@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 
 import ShareProfile from '@/views/Profile/Form/ShareProfile.vue'
 import ChangeOwner from '@/views/Profile/Form/ChangeOwner.vue'
 
 const { t } = useI18n()
+const router = useRouter()
 
 const exportCookies = () => {
   console.log('exportCookies')
@@ -33,6 +35,10 @@ const onDeleteProfile = () => {
     }
   })
 }
+
+const handleEdit = () => {
+  router.push('/create_profile')
+}
 </script>
 
 <template>
@@ -47,7 +53,7 @@ const onDeleteProfile = () => {
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>
-            <el-button type="default" text @click="$emit('openDetails')"
+            <el-button type="default" text @click="handleEdit"
               ><el-icon class="me-2"> <Edit /> </el-icon> Chỉnh sửa
             </el-button>
           </el-dropdown-item>
