@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import CookiesForm from '@/views/CreateProfile/Form/CookieForm.vue'
 import HardwareForm from '@/views/CreateProfile/Form/HardwareForm.vue'
 import LocationForm from '@/views/CreateProfile/Form/LocationForm.vue'
+import OverViewForm from '@/views/CreateProfile/Form/OverViewForm.vue'
+import NetworkForm from '@/views/CreateProfile/Form/NetworkForm.vue'
 
 const activeTab = ref('overview')
 </script>
@@ -11,10 +13,10 @@ const activeTab = ref('overview')
   <div>
     <el-tabs v-model="activeTab">
       <el-tab-pane label="Tổng Quan" name="overview">
-        <p>Content for Tổng Quan</p>
+        <OverViewForm></OverViewForm>
       </el-tab-pane>
       <el-tab-pane label="Mạng" name="network">
-        <p>Content for Mạng</p>
+        <NetworkForm></NetworkForm>
       </el-tab-pane>
       <el-tab-pane label="Vị Trí" name="location">
         <LocationForm></LocationForm>
